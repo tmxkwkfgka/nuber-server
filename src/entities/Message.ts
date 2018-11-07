@@ -10,7 +10,7 @@ import {
   } from "typeorm";
 
   import Chat from './Chat'
-import User from "./User";
+  import User from "./User";
 
    @Entity()
   class Message extends BaseEntity {

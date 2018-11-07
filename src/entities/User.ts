@@ -14,8 +14,9 @@ import {
 } from "typeorm";
 import Chat from "./Chat";
 import Message from "./Message";
-import Verification from "./Verification";
 import Ride from "./Ride";
+
+
 
 
 const BCRYPT_ROUND = 10;
@@ -23,20 +24,20 @@ const BCRYPT_ROUND = 10;
  @Entity()
 class User extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
-   @Column({ type: "text", unique: true })
+   @Column({ type: "text", nullable: true })
   @IsEmail()
-  email: string;
+  email: string | null;
    @Column({ type: "boolean", default: false })
   verifiedEmail: boolean;
    @Column({ type: "text" })
   firstName: string;
    @Column({ type: "text" })
   lastName: string;
-   @Column({ type: "int" })
+   @Column({ type: "int", nullable:true })
   age: number;
-   @Column({ type: "text" })
+   @Column({ type: "text", nullable:true })
   password: string;
-   @Column({ type: "text" })
+   @Column({ type: "text", nullable:true })
   phoneNumber: string;
    @Column({ type: "boolean", default: false })
   verifiedPhonenNumber: boolean;
@@ -56,7 +57,8 @@ class User extends BaseEntity {
    @Column({ type: "double precision", default: 0 })
   lastOrientation: number;
 //float 지원 안됌 테스트할떄 에러생겼다함
-
+  @Column({ type: "text", nullable: true })
+  fbId: string;
   
 
    @CreateDateColumn() createdAt: string;
@@ -66,10 +68,8 @@ class User extends BaseEntity {
    chat: Chat;
 
    @OneToMany(type=>Message, message=>message.user)
-   messages: Message
+   messages: Message[]
 
-   @OneToMany(type=>Verification, verification=>verification.user)
-   verifications : Verification[]
 
    @OneToMany(type=>Ride, ride=>ride.passenger)
    ridesAsPassenger: Ride[]
@@ -80,7 +80,7 @@ class User extends BaseEntity {
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
-  public comparePassword(password: string, hashString: string): Promise<boolean>{
+  public comparePassword(password: string): Promise<boolean>{
       return bcrypt.compare(password, this.password)
   }
 
