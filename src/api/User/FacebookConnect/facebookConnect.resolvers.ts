@@ -2,8 +2,9 @@ import User from "../../../entities/User"
 import { 
     FacebookConnectResponse,
     FacebookConnectMutationArgs
-} from "src/types/graph";
+} from "../../../types/graph";
 import {Resolvers} from "../../../types/resolvers"
+import createJWT from "../../../utils/createJWT";
 
 const resolvers: Resolvers = {
     Mutation:{
@@ -28,11 +29,12 @@ const resolvers: Resolvers = {
             }
 
             try{
-                await User.create({...args, profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`}).save()
+                const newUser = await User.create({...args, profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`}).save();
+                const token = createJWT(newUser.id);
                 return {
                     ok: true,
                     error: null,
-                    token: "Coming soon"
+                    token: token
                   };
             }catch(error){
                 return {

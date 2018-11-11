@@ -3,74 +3,46 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinColumn,
-    ManyToOne,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
-  } from "typeorm";
-  import { rideStatus } from "../types/types";
-  import Chat from "./Chat";
-  import User from "./User";
-  
-  @Entity()
-  class Ride extends BaseEntity {
+    UpdateDateColumn,
+    ManyToOne
+} from "typeorm"
+import { rideStatus } from "../types/types";
+import User from "./User";
+
+@Entity()
+class Ride extends BaseEntity{
     @PrimaryGeneratedColumn() id: number;
-  
     @Column({
-      type: "text",
-      enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
-      default: "REQUESTING"
-    })
-    status: rideStatus;
-  
+     type: "text",
+     enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"]
+   })
+   status: rideStatus;
     @Column({ type: "text" })
-    pickUpAddress: string;
-  
+   pickUpAddress: string;
     @Column({ type: "double precision", default: 0 })
-    pickUpLat: number;
-  
+   pickUpLat: number;
     @Column({ type: "double precision", default: 0 })
-    pickUpLng: number;
-  
+   pickUpLng: number;
     @Column({ type: "text" })
-    dropOffAddress: string;
-  
+   dropOffAddress: string;
     @Column({ type: "double precision", default: 0 })
-    dropOffLat: number;
-  
+   dropOffLat: number;
     @Column({ type: "double precision", default: 0 })
-    dropOffLng: number;
-  
+   dropOffLng: number;
     @Column({ type: "double precision", default: 0 })
-    price: number;
-  
+   price: number;
     @Column({ type: "text" })
-    distance: string;
-  
+   distance: string;
     @Column({ type: "text" })
-    duration: string;
-  
-    @Column({ nullable: true })
-    passengerId: number;
-  
-    @ManyToOne(type => User, user => user.ridesAsPassenger)
+   duration: string;
+    @ManyToOne(type=>User, user=>user.ridesAsPassenger)
     passenger: User;
-  
-    @Column({ nullable: true })
-    driverId: number;
-  
-    @ManyToOne(type => User, user => user.ridesAsDriver, { nullable: true })
+    @ManyToOne(type=>User, user=>user.ridesAsDriver)
     driver: User;
-  
-    @Column({ nullable: true })
-    chatId: number;
-  
-   
-    @JoinColumn()
-    chat: Chat;
-  
     @CreateDateColumn() createdAt: string;
-  
     @UpdateDateColumn() updatedAt: string;
-  }
-  export default Ride;
+
+}
+
+export default Ride;

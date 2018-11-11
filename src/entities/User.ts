@@ -14,6 +14,7 @@ import {
 } from "typeorm";
 import Chat from "./Chat";
 import Message from "./Message";
+import Place from './Place';
 import Ride from "./Ride";
 
 
@@ -29,7 +30,7 @@ class User extends BaseEntity {
   email: string | null;
    @Column({ type: "boolean", default: false })
   verifiedEmail: boolean;
-   @Column({ type: "text" })
+   @Column({ type: "text"})
   firstName: string;
    @Column({ type: "text" })
   lastName: string;
@@ -40,7 +41,7 @@ class User extends BaseEntity {
    @Column({ type: "text", nullable:true })
   phoneNumber: string;
    @Column({ type: "boolean", default: false })
-  verifiedPhonenNumber: boolean;
+   verifiedPhoneNumber: boolean;
    @Column({ type: "text" })
   profilePhoto: string;
 
@@ -70,6 +71,9 @@ class User extends BaseEntity {
    @OneToMany(type=>Message, message=>message.user)
    messages: Message[]
 
+   @OneToMany(type=>Place, place=>place.user)
+   places: Place[]
+
 
    @OneToMany(type=>Ride, ride=>ride.passenger)
    ridesAsPassenger: Ride[]
@@ -84,6 +88,7 @@ class User extends BaseEntity {
       return bcrypt.compare(password, this.password)
   }
 
+  //이거 요청하려면 업데이트하기전에 user의 인스턴스가 있어야 한다.
   @BeforeInsert()
   @BeforeUpdate()
   async savePassword() : Promise<void>  {

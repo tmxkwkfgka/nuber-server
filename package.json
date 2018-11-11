@@ -7,6 +7,7 @@
   "author": "jiji",
   "license": "MIT",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.3.0",
     "bcrypt": "^3.0.2",
     "class-validator": "^0.9.1",
     "cors": "^2.8.4",
@@ -14,6 +15,8 @@
     "graphql-tools": "^4.0.3",
     "graphql-yoga": "^1.16.7",
     "helmet": "^3.14.0",
+    "jsonwebtoken": "^8.3.0",
+    "mailgun-js": "^0.22.0",
     "merge-graphql-schemas": "^1.5.7",
     "morgan": "^1.9.1",
     "pg": "^7.6.0",
@@ -26,13 +29,15 @@
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.4",
     "@types/helmet": "^0.0.42",
+    "@types/mailgun-js": "^0.16.1",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.12.2",
     "@types/twilio": "^0.0.10",
     "babel-runtime": "^6.26.0",
     "gql-merge": "^0.0.6",
     "graphql-to-typescript": "^0.1.2",
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.5",
+    "types": "^0.1.1"
   },
   "scripts": {
     "predev": "yarn run types",

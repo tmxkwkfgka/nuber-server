@@ -22,10 +22,13 @@ const EMAIL = "EMAIL"
     target: verificationTarget;
     //target이 폰도 되고 패스워도되 되어야 함
 
-     @Column({ type: "text" })
+    @Column({ type: "text" })
     payload: string;
-     @Column({ type: "text" })
+    @Column({ type: "text" })
     key: string;
+    @Column({ type: "boolean", default: false })
+    verified: boolean;
+  
   
    
      @CreateDateColumn() createdAt: string;
