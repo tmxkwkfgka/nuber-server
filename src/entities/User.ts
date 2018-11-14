@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
-  ManyToOne,
+ 
   OneToMany
 } from "typeorm";
 import Chat from "./Chat";
@@ -62,11 +62,14 @@ class User extends BaseEntity {
   fbId: string;
   
 
-   @CreateDateColumn() createdAt: string;
-   @UpdateDateColumn() updatedAt: string;
+  @CreateDateColumn() createdAt: string;
+  @UpdateDateColumn() updatedAt: string;
 
-   @ManyToOne(type=>Chat, chat=>chat.participants)
-   chat: Chat;
+  @OneToMany(type => Chat, chat => chat.passenger)
+  chatsAsPassenger: Chat[];
+  @OneToMany(type => Chat, chat => chat.driver)
+  chatsAsDriver: Chat[];
+
 
    @OneToMany(type=>Message, message=>message.user)
    messages: Message[]

@@ -18,8 +18,11 @@ const resolvers: Resolvers = {
         const user: User = req.user;
         const notNull = cleanNullArgs(args);
         try {
+          //이거는 이전에 레퍼런스한놈은 바뀌지 않고 디비가 바뀜
+          //수정 요청만 보내고 기존에 놈이 있는지는 신겨안씀
           await User.update({ id: user.id }, { ...notNull });
-          pubSub.publish("driverUpdate", { DriversSubscription: user });
+          const updatedUser = await User.findOne({id: user.id});
+          pubSub.publish("driverUpdate", { DriversSubscription: updatedUser });
           return {
             ok: true,
             error: null

@@ -10,8 +10,12 @@
   price: Float!
   distance: String!
   duration: String!
+  driverId: Int
   driver:User!
   passenger:User!
+  chat:Chat
+  chatId:Int
+  passengerId: Int!
   createdAt: String!
   updatedAt: String
  }

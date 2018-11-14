@@ -1,7 +1,12 @@
 type Chat{
     id: Int!
-    messages: [Message]!
-    participants: [User]!
+    messages: [Message]
+    driverId: Int
+    driver: User!
+    passengerId: Int!
+    passenger: User!
+    #리퀘스트 라이드 하고 연결되야 챗가능
+    ride: Ride!
     createdAt: String!
     updatedAt: String
 
